@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = () => {
           <div>
             <Link
               to="/"
-              className="font-(family-name:--font-accent) text-[var(--color-primary)] text-3xl"
+              className="font-(family-name:--font-accent) text-(--color-primary) text-3xl"
             >
               conduit
             </Link>
