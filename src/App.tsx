@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Banner from "./components/Banner/Banner";
 import Header from "./components/Header/Header";
 import Article from "./modules/feed/components/articles/Aricle";
+import ArticleSkeleton from "./modules/feed/components/ArticleSkeleton/ArticleSkeleton";
 
 interface Post {
   id: number;
@@ -18,24 +19,37 @@ interface Post {
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
-  
-  useEffect(() => {
-  fetch("https://dummyjson.com/posts")
-    .then((res) => res.json())
-    .then((data) => {
-      setPosts(data.posts);
-    })
-    .catch((err) => console.error(err));
-}, []);
+  const [loading, setLoading] = useState(true);
 
-  
+  useEffect(() => {
+    fetch("https://dummyjson.com/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.posts);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+//   useEffect(() => {
+//   setTimeout(() => {
+//     fetch("https://dummyjson.com/posts")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setPosts(data.posts);
+//       })
+//       .catch((err) => console.error(err))
+//       .finally(() => setLoading(false));
+//   }, 1500); // 1.5 сек
+// }, []);
+
   return (
     <>
       <Header />
       <Banner />
-      {posts.map((post) => (
-        <Article key={post.id} post={post} />
-      ))}
+      {loading
+        ? Array.from({ length: 5 }).map((_, i) => <ArticleSkeleton key={i} />)
+        : posts.map((post) => <Article key={post.id} post={post} />)}
     </>
   );
 }
