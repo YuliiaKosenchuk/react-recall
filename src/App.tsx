@@ -3,7 +3,7 @@ import Banner from "./components/Banner/Banner";
 import Header from "./components/Header/Header";
 import Article from "./modules/feed/components/Articles/Aricle";
 import ArticleSkeleton from "./modules/feed/components/ArticleSkeleton/ArticleSkeleton";
-import ShoppingCart from "./modules/feed/components/ShoppingCart/ShoppingCart";
+import { ShoppingCart } from "./modules/feed/components/ShoppingCart/ShoppingCart";
 
 interface Post {
   id: number;
